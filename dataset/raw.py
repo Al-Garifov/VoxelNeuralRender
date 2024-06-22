@@ -60,6 +60,7 @@ def get_volume(path: str):
     return volume
 
 
+# TODO: may be convert directly to pytorch files?
 def convert_to_npz(samples: int, path: str, batch: int = 100):
     for i in range(0, samples // batch):
         volumes = _get_volumes(batch, start=i * batch)
