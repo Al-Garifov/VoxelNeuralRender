@@ -15,6 +15,11 @@ Training data is OpenVDB representation of rigid objects in camera space (in dis
 Both VDBs and images utilize only one channel for simplification. 
 Multiplying channel number is one of the project's goals if it succeeds with easier tasks.
 
+Render is done using clear and reflective material to check if it is possible for neural network to predict reflections and shadows.
+
+![image](https://github.com/Al-Garifov/VoxelNeuralRender/assets/113169696/40b0751c-404b-4c5f-9989-aae2235dea91)
+
+
 #### Model
 Is intended to consist of three parts: 
 - 3D convolution starting from raw data (may be with use of Fourier Feature Mapping)
