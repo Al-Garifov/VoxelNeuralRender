@@ -21,5 +21,6 @@ nvidia-nvtx-cu12==12.1.105
 pillow==10.3.0
 sympy==1.12.1
 torch==2.3.1
+torchinfo==1.8.0
 triton==2.3.1
 typing_extensions==4.12.2
