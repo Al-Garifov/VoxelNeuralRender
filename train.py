@@ -63,8 +63,8 @@ for epoch in range(epoch_init, epoch_init + epochs):
 
     print(f"Epoch {epoch + 1} done in {time.time() - start:.2f} seconds.")
 
-    print(f"Train      loss is {running_loss/(len(dataset) - 1)/100.0*batch_size:.2f}")
-    print(f"Validation loss is {validation_loss/100.0*batch_size:.2f}")
+    print(f"Train      loss is {running_loss/(len(dataset) - 1)/100.0*batch_size:.5f}")
+    print(f"Validation loss is {validation_loss/100.0*batch_size:.5f}")
 
     image = model(dataset[-1][0][56].to(dev))
 
