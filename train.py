@@ -1,4 +1,7 @@
-import numpy.dtypes
+import os.path
+
+import matplotlib.pyplot as plt
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -20,12 +23,18 @@ dataset = prepared.Dataset()
 loss_fn = nn.L1Loss()
 opt = optim.Adam(model.parameters(), lr=3e-4)
 
+epoch_init = 0
 epochs = 10
 batch_size = 2
 
 min_loss = 1e9
 
-for epoch in range(epochs):
+if os.path.exists("checkpoint.pt"):
+    checkpoint = torch.load("checkpoint.pt")
+    model.load_state_dict(checkpoint['model_state_dict'])
+    epoch_init = checkpoint['epoch'] + 1
+
+for epoch in range(epoch_init, epoch_init + epochs):
     start = time.time()
     running_loss = 0.0
     validation_loss = 0.0
@@ -56,6 +65,10 @@ for epoch in range(epochs):
 
     print(f"Train      loss is {running_loss/(len(dataset) - 1)/100.0*batch_size:.2f}")
     print(f"Validation loss is {validation_loss/100.0*batch_size:.2f}")
+
+    image = model(dataset[-1][0][56].to(dev))
+
+    plt.imsave(f"./progress/epoch{epoch}.jpg", image.cpu().detach()[0][0], cmap='gray', vmin=0, vmax=1)
 
     if min_loss > validation_loss:
         min_loss = validation_loss
