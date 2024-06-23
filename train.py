@@ -40,7 +40,7 @@ for epoch in range(epoch_init, epoch_init + epochs):
     validation_loss = 0.0
     for chunk in range(len(dataset) - 1):
         volumes, images = dataset[chunk]
-        for sample in range(len(volumes), step=batch_size):
+        for sample in range(0, len(volumes), batch_size):
             inputs = volumes[sample:sample+batch_size].to(dev)
             targets = images[sample:sample+batch_size].to(dev)
 
@@ -53,7 +53,7 @@ for epoch in range(epoch_init, epoch_init + epochs):
             running_loss += loss
     with torch.no_grad():
         volumes, images = dataset[-1]
-        for sample in range(len(volumes), step=batch_size):
+        for sample in range(0, len(volumes), batch_size):
             inputs = volumes[sample:sample+batch_size].to(dev)
             targets = images[sample:sample+batch_size].to(dev)
 
