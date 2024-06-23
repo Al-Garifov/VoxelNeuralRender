@@ -22,7 +22,7 @@ Render is done using clear and reflective material to check if it is possible fo
 ## Model
 Is intended to consist of three parts: 
 - 3D convolution starting from raw data (may be with use of Fourier Feature Mapping)
-- resample
+- reshape
 - 2D deconvolution to final render prediction.
 
 I own 3060 RTX 12GB so it is a limiting factor to be able to train model in adequate time using this GPU.
