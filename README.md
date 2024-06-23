@@ -1,10 +1,10 @@
 # Voxel Neural Render
 Implementation of Ray Tracing Engine via Machine Learning techniques, mainly Convolutional Neural Networks.
 ___
-### Structure
+## Structure
 Configuration (such as pointing to data roots) could be done by setting global variables in `__init__.py` files.
 
-#### Dataset
+## Dataset
 Provides functions to work with "raw" data generated from CG software with usage of industrial stardard formats i.e. OpenVDB. 
 
 While **recommended way to interact with data is via prepared ".npz" archives** native to NumPy and understandable by majority of Machine Learning frameworks such as PyTorch mainly used in this project.
@@ -19,8 +19,7 @@ Render is done using clear and reflective material to check if it is possible fo
 
 ![image](https://github.com/Al-Garifov/VoxelNeuralRender/assets/113169696/40b0751c-404b-4c5f-9989-aae2235dea91)
 
-
-#### Model
+## Model
 Is intended to consist of three parts: 
 - 3D convolution starting from raw data (may be with use of Fourier Feature Mapping)
 - resample
@@ -30,7 +29,7 @@ I own 3060 RTX 12GB so it is a limiting factor to be able to train model in adeq
 
 Architecture v001 (U-Net style connections should be added in next versions):
 
-![image](https://github.com/Al-Garifov/VoxelNeuralRender/assets/113169696/a2f58e27-c694-4dc5-b372-4defabde6f7d)
+![image](https://github.com/Al-Garifov/VoxelNeuralRender/assets/113169696/d4d226b4-2df3-4fa1-83c7-5a0fba56ab65)
 
 ```==========================================================================================
 Layer (type:depth-idx)                   Output Shape              Param #
