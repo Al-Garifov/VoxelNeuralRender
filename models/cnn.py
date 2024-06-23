@@ -81,4 +81,4 @@ class ConvDeconv(nn.Module):
 if __name__ == "__main__":
     from torchinfo import summary
     model = ConvDeconv()
-    summary(model, input_size=(1, 1, 256, 256, 256))
+    summary(model, input_size=(5, 1, 256, 256, 256))
