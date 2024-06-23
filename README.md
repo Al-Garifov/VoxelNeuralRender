@@ -23,6 +23,35 @@ Is intended to consist of three parts:
 
 I own 3060 RTX 12GB so it is a limiting factor to be able to train model in adequate time using this GPU.
 
+Architecture v001 (U-Net style connections should be added in next versions):
+
+```==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+ConvDeconv                               [1, 1, 256, 256]          --
+├─Conv3d: 1-1                            [1, 64, 128, 128, 128]    4,160
+├─Conv3d: 1-2                            [1, 64, 128, 128, 128]    4,160
+├─Conv3d: 1-3                            [1, 128, 64, 64, 64]      524,416
+├─Conv3d: 1-4                            [1, 128, 64, 64, 64]      16,512
+├─Conv3d: 1-5                            [1, 512, 32, 32, 32]      4,194,816
+├─Conv3d: 1-6                            [1, 512, 32, 32, 32]      262,656
+├─Conv3d: 1-7                            [1, 1024, 16, 16, 16]     33,555,456
+├─Conv3d: 1-8                            [1, 1024, 16, 16, 16]     1,049,600
+├─ConvTranspose2d: 1-9                   [1, 512, 128, 128]        8,389,120
+├─ConvTranspose2d: 1-10                  [1, 512, 128, 128]        262,656
+├─ConvTranspose2d: 1-11                  [1, 1, 256, 256]          8,193
+==========================================================================================
+Total params: 48,271,745
+Trainable params: 48,271,745
+Non-trainable params: 0
+Total mult-adds (Units.GIGABYTES): 589.34
+==========================================================================================
+Input size (MB): 67.11
+Forward/backward pass size (MB): 3154.64
+Params size (MB): 193.09
+Estimated Total Size (MB): 3414.84
+==========================================================================================
+```
 ___
 More docs are coming when more code is written.
 ___
