@@ -21,6 +21,7 @@ loss_fn = nn.L1Loss()
 opt = optim.Adam(model.parameters(), lr=3e-4)
 
 epochs = 10
+batch_size = 2
 
 min_loss = 1e9
 
@@ -28,11 +29,11 @@ for epoch in range(epochs):
     start = time.time()
     running_loss = 0.0
     validation_loss = 0.0
-    for batch in range(len(dataset) - 1):
-        volumes, images = dataset[batch]
-        for sample in range(len(volumes)):
-            inputs = volumes[sample].to(dev)
-            targets = images[sample].to(dev)
+    for chunk in range(len(dataset) - 1):
+        volumes, images = dataset[chunk]
+        for sample in range(len(volumes), step=batch_size):
+            inputs = volumes[sample:sample+batch_size].to(dev)
+            targets = images[sample:sample+batch_size].to(dev)
 
             opt.zero_grad()
             outputs = model(inputs)
@@ -43,9 +44,9 @@ for epoch in range(epochs):
             running_loss += loss
     with torch.no_grad():
         volumes, images = dataset[-1]
-        for sample in range(len(volumes)):
-            inputs = volumes[sample].to(dev)
-            targets = images[sample].to(dev)
+        for sample in range(len(volumes), step=batch_size):
+            inputs = volumes[sample:sample+batch_size].to(dev)
+            targets = images[sample:sample+batch_size].to(dev)
 
             outputs = model(inputs)
             loss = loss_fn(outputs.reshape([-1]), targets.reshape([-1]))
@@ -53,8 +54,8 @@ for epoch in range(epochs):
 
     print(f"Epoch {epoch + 1} done in {time.time() - start:.2f} seconds.")
 
-    print(f"Train      loss is {running_loss/(len(dataset) - 1)/100.0:.2f}")
-    print(f"Validation loss is {validation_loss/100.0:.2f}")
+    print(f"Train      loss is {running_loss/(len(dataset) - 1)/100.0*batch_size:.2f}")
+    print(f"Validation loss is {validation_loss/100.0*batch_size:.2f}")
 
     if min_loss > validation_loss:
         min_loss = validation_loss
