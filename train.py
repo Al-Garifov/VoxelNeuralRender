@@ -25,7 +25,7 @@ opt = optim.Adam(model.parameters(), lr=3e-4)
 
 epoch_init = 0
 epochs = 10
-batch_size = 2
+batch_size = 1
 
 min_loss = 1e9
 
