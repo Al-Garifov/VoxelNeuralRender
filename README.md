@@ -25,6 +25,8 @@ I own 3060 RTX 12GB so it is a limiting factor to be able to train model in adeq
 
 Architecture v001 (U-Net style connections should be added in next versions):
 
+![image](https://github.com/Al-Garifov/VoxelNeuralRender/assets/113169696/a2f58e27-c694-4dc5-b372-4defabde6f7d)
+
 ```==========================================================================================
 Layer (type:depth-idx)                   Output Shape              Param #
 ==========================================================================================
@@ -52,6 +54,7 @@ Params size (MB): 193.09
 Estimated Total Size (MB): 3414.84
 ==========================================================================================
 ```
+
 ___
 More docs are coming when more code is written.
 ___
