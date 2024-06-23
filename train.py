@@ -18,7 +18,7 @@ model = ConvDeconv().to(dev)
 dataset = prepared.Dataset()
 
 loss_fn = nn.L1Loss()
-opt = optim.Adam(model.parameters(), lr=2e-3)
+opt = optim.Adam(model.parameters(), lr=3e-4)
 
 epochs = 10
 
