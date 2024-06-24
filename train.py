@@ -16,7 +16,6 @@ if torch.cuda.is_available():
 else:
     dev = "cpu"
 
-
 model = ConvDeconv().to(dev)
 dataset = prepared.Dataset()
 
@@ -41,8 +40,8 @@ for epoch in range(epoch_init, epoch_init + epochs):
     for chunk in range(len(dataset) - 1):
         volumes, images = dataset[chunk]
         for sample in range(0, len(volumes), batch_size):
-            inputs = volumes[sample:sample+batch_size].to(dev)
-            targets = images[sample:sample+batch_size].to(dev)
+            inputs = volumes[sample:sample + batch_size].to(dev)
+            targets = images[sample:sample + batch_size].to(dev)
 
             opt.zero_grad()
             outputs = model(inputs)
@@ -54,8 +53,8 @@ for epoch in range(epoch_init, epoch_init + epochs):
     with torch.no_grad():
         volumes, images = dataset[-1]
         for sample in range(0, len(volumes), batch_size):
-            inputs = volumes[sample:sample+batch_size].to(dev)
-            targets = images[sample:sample+batch_size].to(dev)
+            inputs = volumes[sample:sample + batch_size].to(dev)
+            targets = images[sample:sample + batch_size].to(dev)
 
             outputs = model(inputs)
             loss = loss_fn(outputs.reshape([-1]), targets.reshape([-1]))
@@ -63,18 +62,16 @@ for epoch in range(epoch_init, epoch_init + epochs):
 
     print(f"Epoch {epoch + 1} done in {time.time() - start:.2f} seconds.")
 
-    print(f"Train      loss is {running_loss/(len(dataset) - 1)/100.0*batch_size:.5f}")
-    print(f"Validation loss is {validation_loss/100.0*batch_size:.5f}")
+    print(f"Train      loss is {running_loss / (len(dataset) - 1) / 100.0 * batch_size:.5f}")
+    print(f"Validation loss is {validation_loss / 100.0 * batch_size:.5f}")
 
-    image = model(dataset[-1][0][56].to(dev))
+    # image = model(dataset[-1][0][56].to(dev)).cpu().detach()[0][0]
 
-    plt.imsave(f"./progress/epoch{epoch}.jpg", image.cpu().detach()[0][0], cmap='gray', vmin=0, vmax=1)
+    # plt.imsave(f"./progress/epoch{epoch + 1}.jpg", image, cmap='gray', vmin=0, vmax=1)
 
-    if min_loss > validation_loss:
-        min_loss = validation_loss
-        torch.save({
-                'epoch': epoch,
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': opt.state_dict(),
-                'loss': validation_loss,
-                }, "checkpoint.pt")
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': opt.state_dict(),
+        'loss': validation_loss,
+    }, "checkpoint.pt")
